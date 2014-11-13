@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="How to protect crypto material from your hosting provider">
+<meta name="keywords" content="crypto, security, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="How to protect crypto material from your hosting provider"/>
+<meta property="og:title" content="Protecting in-memory crypto material : khia.github.io"/>
+<meta property="og:site_name" content="KHIA is ILYA Khlopotov"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-11-13"/>
+<meta property="article:modified_time" content="2014-11-13"/>
+
+
+
+<meta property="article:tag" content="crypto">
+<meta property="article:tag" content="security">
+
+
+
+
+    <base href="http://khia.github.io/blog">
+    <title> Protecting in-memory crypto material - khia.github.io </title>
+    <link rel="canonical" href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">
+    
+
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://khia.github.io/blog/static/css/style.css">
+
+<link rel="stylesheet" href="http://khia.github.io/blog/static/css/vendor/highlight.js/default.min.css">
+<script src="http://khia.github.io/blog/static/js/vendor/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="shortcut icon" href="http://khia.github.io/blog//favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="http://khia.github.io/blog//apple-touch-icon.png" />
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+      <a href="/" border=0 id="logolink"><img src="http://khia.github.io/blog/favicon.png"></a>
+    </figure>
+    <div id="byline">by ILYA Khlopotov</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+            <a href="/project/">
+                <span class="icon"> <i aria-hidden="true" class="icon-console"></i></span>
+                <span> code </span>
+            </a>
+            </li>
+            <li>
+            <a href="/presentation/">
+                <span class="icon"> <i aria-hidden="true" class="icon-stats"></i></span>
+                <span> talks </span>
+            </a>
+            </li>
+            <li>
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f&title=Protecting%20in-memory%20crypto%20material&source=KHIA" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fprotecting-in-memory-crypto-material%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="http://ca.linkedin.com/pub/ilya-khlopotov/b/987/265/" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://github.com/khia" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">Protecting in-memory crypto material</h1>
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h1 id="toc_0">Protecting in-memory crypto material</h1>
+
+<h2 id="toc_1">Introduction</h2>
+
+<p>Let&rsquo;s say you operate a service which need to sign clients&rsquo; requests.
+You would have to have a private key (signing key) on your server.
+Having keys on the server is ok as long as you fully control the server.
+You cannot trust the cloud provider if you use one.
+Even if a company you use doesn&rsquo;t practice illegal access to information of their customers.
+Some individual employees might. So what you would do to protect yourself in this case?</p>
+
+<h2 id="toc_2">Solution</h2>
+
+<p>Unfortunately there is no solution.
+If third party controls your hardware. They have access to RAM where the private key is located.
+They can use various ways to get the info from there.
+If quantum entanglement would be employed in the form of quantum-memory than it might be possible to implement self destruction of crypto key whenever anyone looking at it. Until then there is no hope. However you can mitigate the risk if you employ multiple cloud providers and split private key into individually useless fragments. In this case you could do distributed signing. The correct term for this functionality is &ldquo;aggregate signatures&rdquo;. There are sequencial aggregate signatures and non-sequencial ones. Sequential usually non-interactive while non-sequential are interactive.</p>
+
+<h2 id="toc_3">RSA-compatible</h2>
+
+<ol>
+<li>ID-Based Sequential Aggregate Signatures by Xiangguo Cheng at el.</li>
+</ol>
+
+<h2 id="toc_4">Non RSA-compatible</h2>
+
+<ol>
+<li>Sequential Aggregate Signatures, Multisignatures, and Veriably Encrypted Signatures Without Random Oracles.</li>
+</ol>
+
+<h2 id="toc_5">Note for myself</h2>
+
+<p>Add bibtex links</p>
+
+        </article>
+  </div>
+</section>
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Thu Nov 13, 2014 </h4>
+          <h5 id="wc"> 300 Words </h5>
+          <h5 id="readtime"> Read in about 2 Min </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://khia.github.io/blog/topics/Thoughts">Thoughts</a> </li>
+          
+            <li><a href="http://khia.github.io/blog/topics/Crypto">Crypto</a> </li>
+          
+            <li><a href="http://khia.github.io/blog/topics/Theory">Theory</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://khia.github.io/blog/tags/crypto">crypto</a> </li>
+          
+            <li> <a href="http://khia.github.io/blog/tags/security">security</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://khia.github.io/blog/post/generating-random-looking-ids/">Generating random looking IDs <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    <div>
+        <section id="author">
+             <h4>About the Author:</h4>
+                ILYA Khlopotov is the Developer who is a scientist at heart.
+                Enjoy solving complex problems and learning something new.
+                Interested in:
+                  <ul id="tags">
+                  <li>hardware</li>
+                  <li>privacy/security/crypto</li>
+                  <li>distributed architectures</li>
+                  <li>scalability</li>
+                  </ul>
+             </ul>
+        </section>
+    </div>
+
+</aside>
+
+<meta itemprop="wordCount" content="234">
+<meta itemprop="datePublished" content="2014-11-13">
+<meta itemprop="url" content="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">
+
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2013-14 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ILYA Khlopotov.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>;
+    please attribute properly and link back. <br>
+    Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+    Based on <a href="http://spf13.com">spf13.com</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+</body>
+</html>
+
