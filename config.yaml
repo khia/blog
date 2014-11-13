@@ -4,7 +4,7 @@ layoutdir: "layouts"
 publishdir: "public"
 indexes:
 category: "categories"
-baseurl: "http://khia.github.io"
+baseurl: "http://khia.github.io/blog"
 title: "KHIA's personal Blog"
 params:
   Site: "khia.github.io"
