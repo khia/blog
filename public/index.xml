@@ -10,6 +10,114 @@
     <updated>Thu, 13 Nov 2014 00:00:00 UTC</updated>
     
     <item>
+      <title>Generating random looking IDs</title>
+      <link>http://khia.github.io/blog/post/generating-random-looking-ids/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>
+      
+      <guid>http://khia.github.io/blog/post/generating-random-looking-ids/</guid>
+      <description>
+
+&lt;h1 id=&#34;toc_0&#34;&gt;Generating random looking IDs&lt;/h1&gt;
+
+&lt;h2 id=&#34;toc_1&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_2&#34;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;The soltution I am going to explore today is based on the use of &lt;code&gt;block ciphers&lt;/code&gt;. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_3&#34;&gt;Elixir Implementation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;defmodule CryptoSequence do
+  defstruct key: nil, iv: nil, ctr: 0
+
+  def new(args \\ []) do
+    state = struct(__MODULE__, [
+	    key: args[:key] || :crypto.rand_bytes(16),
+	    iv: args[:iv] || :crypto.rand_bytes(16)
+	  ])
+    Stream.unfold(state, &amp;amp;generator/1)
+  end
+
+  defp generator(%__MODULE__{key: key, iv: iv, ctr: ctr} = state) do
+    token = :crypto.block_encrypt(:aes_cfb128, key, iv, &amp;lt;&amp;lt;ctr :: 128 &amp;gt;&amp;gt;)
+    {token, %{state | ctr: ctr + 1}}
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;toc_4&#34;&gt;Example of usage&lt;/h2&gt;
+
+&lt;h3 id=&#34;toc_5&#34;&gt;Return four tokens&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new
+sequence
+  |&amp;gt; Stream.take(4)
+  |&amp;gt; Enum.to_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s try it&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex&amp;gt; sequence |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list
+[&amp;lt;&amp;lt;24, 86, 163, 121, 95, 113, 126, 102, 200, 34, 35, 30, 58, 50, 200, 97&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;152, 122, 169, 74, 24, 168, 169, 92, 206, 91, 153, 8, 53, 194, 104, 104&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&amp;gt;&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;toc_6&#34;&gt;Lazy filtering&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new([size: 8])
+sequence
+  |&amp;gt; Stream.filter(fn(&amp;lt;&amp;lt;i :: 64&amp;gt;&amp;gt;) -&amp;gt; rem(i, 3) == 0 end)
+  |&amp;gt; Stream.take(4)
+  |&amp;gt; Enum.to_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s try it&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iex&amp;gt; sequence |&amp;gt; Stream.filter(fn(&amp;lt;&amp;lt;i :: 128&amp;gt;&amp;gt;) -&amp;gt; rem(i, 3) == 0 end) |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list
+[&amp;lt;&amp;lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;155, 174, 200, 216, 52, 217, 97, 91, 201, 171, 209, 59, 226, 7, 91, 252&amp;gt;&amp;gt;,
+ &amp;lt;&amp;lt;122, 227, 111, 91, 199, 52, 18, 116, 231, 60, 10, 124, 71, 93, 22, 127&amp;gt;&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;toc_7&#34;&gt;Last checks&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Let&amp;rsquo;s check if generated IDs are unique&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new
+length(Stream.take(sequence, 255) |&amp;gt; Enum.to_list |&amp;gt; Enum.uniq) == 255
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Let&amp;rsquo;s check that stream instantiated using the same args emits same sequence&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;key = :crypto.rand_bytes(16)
+iv = :crypto.rand_bytes(16)
+sequence1 = CryptoSequence.new([key: key, iv: iv])
+sequence2 = CryptoSequence.new([key: key, iv: iv])
+(sequence1 |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list) == (sequence2 |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Iv = crypto:rand_bytes(16).
+Key = crypto:rand_bytes(16).
+[base64:encode(crypto:block_encrypt(aes_cfb128, Key, Iv, &amp;lt;&amp;lt;I:32&amp;gt;&amp;gt;)) || I &amp;lt;- lists:seq(1, 255)].
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;toc_8&#34;&gt;Note to myself&lt;/h3&gt;
+
+&lt;p&gt;I need to analyse if the solution is subject to &lt;code&gt;padding oracle attack&lt;/code&gt;. I would need to look at other bijective functions if it is.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Consistency management in distributed settings</title>
       <link>http://khia.github.io/blog/post/consistency-management-in-distributed-settings/</link>
       <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>

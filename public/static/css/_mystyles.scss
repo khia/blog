@@ -290,12 +290,12 @@ figcaption {
 
 
 blockquote {
-    font-family: Georgia, serif; 
-    font-style: italic; 
-    width: 80%; 
-    margin: 0.25em auto; 
-    padding: 0.25em 1em; 
-    line-height: 1.45; position: relative; 
+    font-family: Georgia, serif;
+    font-style: italic;
+    width: 80%;
+    margin: 0.25em auto;
+    padding: 0.25em 1em;
+    line-height: 1.45; position: relative;
     text-align: justify
 }
 
@@ -309,7 +309,7 @@ blockquote:before {
     opacity: .3;
     width: 100%;
     font-family: 'arial';
-    font-style: normal; 
+    font-style: normal;
 }
 
 
@@ -473,4 +473,5 @@ pre {
     padding: 1em;
     line-height: 1.4;
     font-size: larger;
+//    overflow-x: auto;
 }

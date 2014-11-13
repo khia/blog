@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content=" : khia.github.io"/>
+<meta property="og:site_name" content="KHIA is ILYA Khlopotov"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://localhost:1313/blog/post/random-looking-ids/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2008-01-01"/>
+<meta property="article:modified_time" content="2008-01-01"/>
+
+
+
+
+
+    <base href="http://localhost:1313/blog">
+    <title>  - khia.github.io </title>
+    <link rel="canonical" href="http://localhost:1313/blog/post/random-looking-ids/">
+    
+
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://localhost:1313/blog/static/css/style.css">
+
+    <link rel="shortcut icon" href="http://localhost:1313/blog//favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="http://localhost:1313/blog//apple-touch-icon.png" />
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+      <a href="/" border=0 id="logolink"><img src="http://localhost:1313/blog/favicon.png"></a>
+    </figure>
+    <div id="byline">by ILYA Khlopotov</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+            <a href="/project/">
+                <span class="icon"> <i aria-hidden="true" class="icon-console"></i></span>
+                <span> code </span>
+            </a>
+            </li>
+            <li>
+            <a href="/presentation/">
+                <span class="icon"> <i aria-hidden="true" class="icon-stats"></i></span>
+                <span> talks </span>
+            </a>
+            </li>
+            <li>
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f&title=&source=KHIA" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fblog%2fpost%2frandom-looking-ids%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="http://ca.linkedin.com/pub/ilya-khlopotov/b/987/265/" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://github.com/khia" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title"></h1>
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h1 id="toc_0">Generating random looking IDs</h1>
+
+<h2 id="toc_1">Introduction</h2>
+
+<p>Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?</p>
+
+<h2 id="toc_2">Solution</h2>
+
+<p>The soltution is use of <code>block ciphers</code>. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.</p>
+
+<h2 id="toc_3">Elixir Implementation</h2>
+
+<pre><code>defmodule CryptoSequence do
+  defstruct key: nil, iv: nil, ctr: 0
+
+  def new(args \\ []) do
+    state = struct(__MODULE__, [
+	    key: args[:key] || :crypto.rand_bytes(16),
+	    iv: args[:iv] || :crypto.rand_bytes(16)
+	  ])
+    Stream.unfold(state, &amp;generator/1)
+  end
+
+  defp generator(%__MODULE__{key: key, iv: iv, ctr: ctr} = state) do
+    token = :crypto.block_encrypt(:aes_cfb128, key, iv, &lt;&lt;ctr :: 128 &gt;&gt;)
+    {token, %{state | ctr: ctr + 1}}
+  end
+
+end
+</code></pre>
+
+<h2 id="toc_4">Example of usage</h2>
+
+<h3 id="toc_5">Return four tokens</h3>
+
+<pre><code>sequence = CryptoSequence.new
+sequence
+  |&gt; Stream.take(4)
+  |&gt; Enum.to_list
+</code></pre>
+
+<p>Same in one line</p>
+
+<pre><code>iex&gt; sequence |&gt; Stream.take(4) |&gt; Enum.to_list
+[&lt;&lt;24, 86, 163, 121, 95, 113, 126, 102, 200, 34, 35, 30, 58, 50, 200, 97&gt;&gt;,
+ &lt;&lt;152, 122, 169, 74, 24, 168, 169, 92, 206, 91, 153, 8, 53, 194, 104, 104&gt;&gt;,
+ &lt;&lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&gt;&gt;,
+ &lt;&lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&gt;&gt;]
+</code></pre>
+
+<h3 id="toc_6">Lazy filtering</h3>
+
+<pre><code>sequence = CryptoSequence.new([size: 8])
+sequence
+  |&gt; Stream.filter(fn(&lt;&lt;i :: 64&gt;&gt;) -&gt; rem(i, 3) == 0 end)
+  |&gt; Stream.take(4)
+  |&gt; Enum.to_list
+</code></pre>
+
+<p>Same in one line</p>
+
+<pre><code>iex&gt; sequence |&gt; Stream.filter(fn(&lt;&lt;i :: 128&gt;&gt;) -&gt; rem(i, 3) == 0 end) |&gt; Stream.take(4) |&gt; Enum.to_list
+[&lt;&lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&gt;&gt;,
+ &lt;&lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&gt;&gt;,
+ &lt;&lt;155, 174, 200, 216, 52, 217, 97, 91, 201, 171, 209, 59, 226, 7, 91, 252&gt;&gt;,
+ &lt;&lt;122, 227, 111, 91, 199, 52, 18, 116, 231, 60, 10, 124, 71, 93, 22, 127&gt;&gt;]
+</code></pre>
+
+<h3 id="toc_7">Last checks</h3>
+
+<ol>
+<li>Let&rsquo;s check if generated IDs are unique</li>
+</ol>
+
+<pre><code>sequence = CryptoSequence.new
+length(Stream.take(sequence, 255) |&gt; Enum.to_list |&gt; Enum.uniq) == 255
+</code></pre>
+
+<ol>
+<li>Let&rsquo;s check that stream instantiated using the same args emits same sequence</li>
+</ol>
+
+<pre><code>key = :crypto.rand_bytes(16)
+iv = :crypto.rand_bytes(16)
+sequence1 = CryptoSequence.new([key: key, iv: iv])
+sequence2 = CryptoSequence.new([key: key, iv: iv])
+(sequence1 |&gt; Stream.take(4) |&gt; Enum.to_list) == (sequence2 |&gt; Stream.take(4) |&gt; Enum.to_list)
+</code></pre>
+
+<pre><code>Iv = crypto:rand_bytes(16).
+Key = crypto:rand_bytes(16).
+[base64:encode(crypto:block_encrypt(aes_cfb128, Key, Iv, &lt;&lt;I:32&gt;&gt;)) || I &lt;- lists:seq(1, 255)].
+</code></pre>
+
+        </article>
+  </div>
+</section>
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Tue Jan 1, 2008 </h4>
+          <h5 id="wc"> 500 Words </h5>
+          <h5 id="readtime"> Read in about 2 Min </h5>
+        </section>
+        <ul id="categories">
+          
+        </ul>
+        <ul id="tags">
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://localhost:1313/blog/post/consistency-management-in-distributed-settings/"><i class="icon-arrow-left"></i> Consistency management in distributed settings</a><br>
+        </section><section id="next">
+            &nbsp;
+        </section>
+    </div>
+
+    <div>
+        <section id="author">
+             <h4>About the Author:</h4>
+                ILYA Khlopotov is the Developer who is a scientist at heart.
+                Enjoy solving complex problems and learning something new.
+                Interested in:
+                  <ul id="tags">
+                  <li>hardware</li>
+                  <li>privacy/security/crypto</li>
+                  <li>distributed architectures</li>
+                  <li>scalability</li>
+                  </ul>
+             </ul>
+        </section>
+    </div>
+
+</aside>
+
+<meta itemprop="wordCount" content="404">
+<meta itemprop="datePublished" content="2008-01-01">
+<meta itemprop="url" content="http://localhost:1313/blog/post/random-looking-ids/">
+
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2013-14 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ILYA Khlopotov.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>;
+    please attribute properly and link back. <br>
+    Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+    Based on <a href="http://spf13.com">spf13.com</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+

@@ -38,6 +38,10 @@
     <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://khia.github.io/blog/static/css/style.css">
 
+<link rel="stylesheet" href="http://khia.github.io/blog/static/css/vendor/highlight.js/default.min.css">
+<script src="http://khia.github.io/blog/static/js/vendor/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
 </head>
 <body lang="en">
 
@@ -105,6 +109,19 @@
 <section id="main">
   <div>
       <h1 id="title">KHIA&#39;s personal Blog</h1>
+    
+        <article class="post">
+    <header>
+      <h2><a href="http://khia.github.io/blog/post/generating-random-looking-ids/">Generating random looking IDs </a> </h2>
+      <div class="post-meta">Thu, Nov 13, 2014 -  Read in 3 Min </div>
+    </header>
+
+    Generating random looking IDs Introduction Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better? Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.
+    <footer>
+        <a href='http://khia.github.io/blog/post/generating-random-looking-ids/'><nobr>Read more →</nobr></a>
+    </footer>
+</article>
+
     
         <article class="post">
     <header>
