@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="How to run multiple instances of skype on your linux desktop">
+<meta name="keywords" content="skype, docker, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="How to run multiple instances of skype on your linux desktop"/>
+<meta property="og:title" content="Skype in docker : khia.github.io"/>
+<meta property="og:site_name" content="KHIA is ILYA Khlopotov"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://khia.github.io/blog/post/skype-in-docker/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-11-13"/>
+<meta property="article:modified_time" content="2014-11-13"/>
+
+
+
+<meta property="article:tag" content="skype">
+<meta property="article:tag" content="docker">
+
+
+
+
+    <base href="http://khia.github.io/blog">
+    <title> Skype in docker - khia.github.io </title>
+    <link rel="canonical" href="http://khia.github.io/blog/post/skype-in-docker/">
+    
+
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://khia.github.io/blog/static/css/style.css">
+
+<link rel="stylesheet" href="http://khia.github.io/blog/static/css/vendor/highlight.js/default.min.css">
+<script src="http://khia.github.io/blog/static/js/vendor/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    <link rel="shortcut icon" href="http://khia.github.io/blog//favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="http://khia.github.io/blog//apple-touch-icon.png" />
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+      <a href="/" border=0 id="logolink"><img src="http://khia.github.io/blog/favicon.png"></a>
+    </figure>
+    <div id="byline">by ILYA Khlopotov</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+            <a href="/project/">
+                <span class="icon"> <i aria-hidden="true" class="icon-console"></i></span>
+                <span> code </span>
+            </a>
+            </li>
+            <li>
+            <a href="/presentation/">
+                <span class="icon"> <i aria-hidden="true" class="icon-stats"></i></span>
+                <span> talks </span>
+            </a>
+            </li>
+            <li>
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f&title=Skype%20in%20docker&source=KHIA" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fkhia.github.io%2fblog%2fpost%2fskype-in-docker%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="http://ca.linkedin.com/pub/ilya-khlopotov/b/987/265/" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://github.com/khia" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">Skype in docker</h1>
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h1 id="toc_0">Skype in docker</h1>
+
+<h2 id="toc_1">Introduction</h2>
+
+<p>If you want to separate your personal life from work you would end up with two Skype accounts.
+However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user).
+Here comes an idea to run Skype in the docker.
+Running Skype in docker is also useful for privacy sensitive individuals like myself.
+Since the Skype application is closed source and sends data in encrypted form.
+There is no way to know what it is doing and what it is sending out.
+By using docker you can prevent access of Skype application to your files on disk.</p>
+
+<h2 id="toc_2">Previous Attempts</h2>
+
+<p>There are multiple attempts to dockerize <code>skype</code> over the Internet. However most of them install xorg into the container. They also use ssh X11 forwarding to access skype client from the host computer. Can we do better? Let&rsquo;s find out.</p>
+
+<h2 id="toc_3">Solution</h2>
+
+<p>Docker supports passing unix socket from host to the container. If we pass xorg socket our app (in this case Skype but could be anything) we should be able to use it.</p>
+
+<p>This is how you do it:</p>
+
+<pre><code>docker run -t -i -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY &lt;conatiner&gt; &lt;app&gt;
+</code></pre>
+
+<p>Hmm Skype also needs sound. This piece took me quite a lot. I read tons of articles and posts on the internet. Until one day I didn&rsquo;t come across this blog post <a href="https://www.stgraber.org/category/planet-canonical/">Running Google chrome in a container</a>. Here is what the author did:</p>
+
+<pre><code>#!/bin/sh
+PULSE_PATH=$LXC_ROOTFS_PATH/home/ubuntu/.pulse_socket
+
+if [ ! -e &quot;$PULSE_PATH&quot; ] || [ -z &quot;$(lsof -n $PULSE_PATH 2&gt;&amp;1)&quot; ]; then
+    pactl load-module module-native-protocol-unix auth-anonymous=1 \
+        socket=$PULSE_PATH
+fi
+</code></pre>
+
+<p>This is amazing. Even if this technique was used for lxc it must work in the docker. So I refactor it a little bit and here is how it looks.</p>
+
+<pre><code>cat ~/bin/enable_sound
+PULSE_DIR=$1/.pulse/
+mkdir -p ${PULSE_DIR}
+echo &quot;disable-shm=yes&quot; &gt; ${PULSE_DIR}/client.conf
+PULSE_PATH=${PULSE_DIR}/.socket
+if [ ! -e &quot;$PULSE_PATH&quot; ] || [ -z &quot;$(lsof -n $PULSE_PATH 2&gt;&amp;1)&quot; ]; then
+    pactl load-module module-native-protocol-unix auth-anonymous=1 socket=${PULSE_PATH} &gt; /dev/null
+fi
+echo &quot;-e PULSE_SERVER=/data/.pulse/.socket -e QT_X11_NO_MITSHM=1 -v ${PULSE_DIR}/:/data/.pulse&quot;
+</code></pre>
+
+<p>This script can be used as follows:</p>
+
+<pre><code>cat ~/bin/skype.run
+#!/bin/bash
+SCRIPT_DIR=&quot;$( cd &quot;$( dirname &quot;$0&quot; )&quot; &amp;&amp; pwd )&quot;
+if [ &quot;$#&quot; -ne 1 ]; then
+  echo &quot;Usage $0 &lt;profile directory&gt;&quot;
+  exit 1
+fi
+sound_args=$(${SCRIPT_DIR}/enable_sound $1)
+docker run ${sound_args} &lt;conatiner&gt; &lt;app&gt;
+</code></pre>
+
+<p>How about camera? Could we pass web camera device to the docker? Apparently we can.</p>
+
+<pre><code>cat ~/bin/enable_camera
+#!/bin/bash
+if [ -z ${VIDEO_DEV} ]; then
+  for device in /dev/video*
+  do
+    VIDEO_ARGS=&quot;--device=${device} -v ${device}:${device} ${VIDEO_ARGS}&quot;
+  done
+else
+  VIDEO_ARGS=&quot;--device=${VIDEO_DEV} -v ${VIDEO_DEV}:${VIDEO_DEV}&quot;
+fi
+echo ${VIDEO_ARGS}
+</code></pre>
+
+<p>We need to update <code>~/bin/skype.run</code> as follows</p>
+
+<pre><code>- sound_args=$(${SCRIPT_DIR}/enable_sound $1)
+- docker run ${sound_args} &lt;conatiner&gt; &lt;app&gt;
++ sound_args=$(${SCRIPT_DIR}/enable_sound $1)
++ camera_args=$(${SCRIPT_DIR}/enable_camera $1)
++ docker run ${sound_args} ${camera_arg} &lt;conatiner&gt; &lt;app&gt;
+</code></pre>
+
+<p>However my camera didn&rsquo;t work with Skype. Skype needs to access some cameras in compatibility mode. In order to use it add following into <code>Dockerfile</code></p>
+
+<pre><code># Enable camera
+RUN apt-get install -y libv4l-0:i386
+CMD &quot;LD_PRELOAD=/usr/lib/i386-linux-gnu/libv4l/v4l1compat.so /usr/bin/skype&quot;
+</code></pre>
+
+<p>Having <code>enable_video</code> and <code>enable_camera</code> as independent scripts make them very easy to maintain. So I ended up refactoring out xorg socket passing code into <code>bin/enable_video</code>. You can see the result in my other dockerized application <a href="https://github.com/khia-docker/docker-chromium">docker-chromium</a></p>
+
+<p>Full source code of docker-skype is <a href="https://github.com/khia-docker/docker-skype">available</a></p>
+
+<h2 id="toc_4">Security Notes</h2>
+
+<p>This way of running Skype in docker protects only access to your files. Skype app still would be able to keylog or taking screenshots if it does so. Since it has access to xorg socket.</p>
+
+<h2 id="toc_5">Ways to improve</h2>
+
+<p>I don&rsquo;t like that we need to deploy 4 scripts to host machine</p>
+
+<ul>
+<li>skype.run</li>
+<li>enable_sound</li>
+<li>enable_video</li>
+<li>enable_camera</li>
+</ul>
+
+<p>So I&rsquo;m looking for ways how to keep them separate in source code but merge into one script on installation. I want the following to produce one single file <code>~/bin/skype.run</code>.</p>
+
+<pre><code>docker run &lt;container&gt; install &gt; ~/bin/skype.run &amp;&amp; chmod +x ~/bin/skype.run
+</code></pre>
+
+        </article>
+  </div>
+</section>
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Thu Nov 13, 2014 </h4>
+          <h5 id="wc"> 700 Words </h5>
+          <h5 id="readtime"> Read in about 3 Min </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://khia.github.io/blog/topics/Security">Security</a> </li>
+          
+            <li><a href="http://khia.github.io/blog/topics/Docker">Docker</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://khia.github.io/blog/tags/skype">skype</a> </li>
+          
+            <li> <a href="http://khia.github.io/blog/tags/docker">docker</a> </li>
+          
+            <li> <a href="http://khia.github.io/blog/tags/security">security</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/"><i class="icon-arrow-left"></i> Protecting in-memory crypto material</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://khia.github.io/blog/post/consistency-management-in-distributed-settings/">Consistency management in distributed settings <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    <div>
+        <section id="author">
+             <h4>About the Author:</h4>
+                ILYA Khlopotov is the Developer who is a scientist at heart.
+                Enjoy solving complex problems and learning something new.
+                Interested in:
+                  <ul id="tags">
+                  <li>hardware</li>
+                  <li>privacy/security/crypto</li>
+                  <li>distributed architectures</li>
+                  <li>scalability</li>
+                  </ul>
+             </ul>
+        </section>
+    </div>
+
+</aside>
+
+<meta itemprop="wordCount" content="625">
+<meta itemprop="datePublished" content="2014-11-13">
+<meta itemprop="url" content="http://khia.github.io/blog/post/skype-in-docker/">
+
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2013-14 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ILYA Khlopotov.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>;
+    please attribute properly and link back. <br>
+    Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+    Based on <a href="http://spf13.com">spf13.com</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+</body>
+</html>
+
