@@ -50,6 +50,7 @@ Non RSA-compatible
 
 1. Sequential Aggregate Signatures, Multisignatures, and Veriably Encrypted Signatures Without Random Oracles.
 
+2. Sequential Aggregate Signatures with Short Public Keys: Design, Analysis and Implementation Studies.
 
 Note for myself
 ---------------
