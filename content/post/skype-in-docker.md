@@ -34,7 +34,7 @@ By using docker you can prevent access of Skype application to your files on dis
 Previous Attempts
 -----------------
 
-There are multiple attempts to dockerize `skype` over the Internet. However most of them install xorg into the container. They also use ssh X11 forwarding to access skype client from the host computer. Can we do better? Let's find out.
+There are multiple attempts to dockerize `skype` on the Internet. However most of them install xorg into the container. They also use ssh X11 forwarding to access skype client from the host computer. Can we do better? Let's find out.
 
 Solution
 --------
