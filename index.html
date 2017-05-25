@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
+	<meta name="generator" content="Hugo 0.21" />
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -23,8 +24,8 @@
 <meta property="og:image:height" content="" />
 <meta property="og:url" content="http://khia.github.io/blog/">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="0001-01-01"/>
-<meta property="article:modified_time" content="0001-01-01"/>
+<meta property="article:published_time" content="2014-11-13"/>
+<meta property="article:modified_time" content="2014-11-13"/>
 
 
 
@@ -33,7 +34,7 @@
     <base href="http://khia.github.io/blog">
     <title>KHIA&#39;s personal Blog</title>
     <link rel="canonical" href="http://khia.github.io/blog/">
-    <link href="http://khia.github.io/blog/index.xml/" rel="alternate" type="application/rss+xml" title="KHIA&#39;s personal Blog" />
+    <link href="http://khia.github.io/blog/index.xml" rel="alternate" type="application/rss+xml" title="KHIA&#39;s personal Blog" />
 
     <link href='http://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://khia.github.io/blog/static/css/style.css">
@@ -105,13 +106,14 @@
     
         <article class="post">
     <header>
-      <h2><a href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">Protecting in-memory crypto material </a> </h2>
-      <div class="post-meta">Thu, Nov 13, 2014 -  Read in 2 Min </div>
+      <h2><a href="http://khia.github.io/blog/post/consistency-management-in-distributed-settings/">Consistency management in distributed settings </a> </h2>
+      <div class="post-meta">Thu, Nov 13, 2014 -  Read in 7 Min </div>
     </header>
 
-    Protecting in-memory crypto material Introduction Let&rsquo;s say you operate a service which need to sign clients&rsquo; requests. You would have to have a private key (signing key) on your server. Having keys on the server is ok as long as you fully control the server. You cannot trust the cloud provider if you use one. Even if a company you use doesn&rsquo;t practice illegal access to information of their customers. Some individual employees might.
+    Consistency management in distributed settings Disclaimer I just participate in numerous design discussions related to genomu development. However all ideas and 99% of the implementation due to @yrashk. I decided to write this post to document the design of genomu inspite the fact that this great development didn&rsquo;t take off.
+Introduction Being a consultancy agency we had a client who have ordered a development of a backend for a system for doing sport events betting.
     <footer>
-        <a href='http://khia.github.io/blog/post/protecting-in-memory-crypto-material/'><nobr>Read more →</nobr></a>
+        <a href='http://khia.github.io/blog/post/consistency-management-in-distributed-settings/'><nobr>Read more →</nobr></a>
     </footer>
 </article>
 
@@ -122,9 +124,23 @@
       <div class="post-meta">Thu, Nov 13, 2014 -  Read in 3 Min </div>
     </header>
 
-    Generating random looking IDs Introduction Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better? Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.
+    Generating random looking IDs Introduction Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?
+Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.
     <footer>
         <a href='http://khia.github.io/blog/post/generating-random-looking-ids/'><nobr>Read more →</nobr></a>
+    </footer>
+</article>
+
+    
+        <article class="post">
+    <header>
+      <h2><a href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">Protecting in-memory crypto material </a> </h2>
+      <div class="post-meta">Thu, Nov 13, 2014 -  Read in 2 Min </div>
+    </header>
+
+    Protecting in-memory crypto material Introduction Let&rsquo;s say you operate a service which need to sign clients&rsquo; requests. You would have to have a private key (signing key) on your server. Having keys on the server is ok as long as you fully control the server. You cannot trust the cloud provider if you use one. Even if a company you use doesn&rsquo;t practice illegal access to information of their customers.
+    <footer>
+        <a href='http://khia.github.io/blog/post/protecting-in-memory-crypto-material/'><nobr>Read more →</nobr></a>
     </footer>
 </article>
 
@@ -138,19 +154,6 @@
     Skype in docker Introduction If you want to separate your personal life from work you would end up with two Skype accounts. However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user). Here comes an idea to run Skype in the docker. Running Skype in docker is also useful for privacy sensitive individuals like myself. Since the Skype application is closed source and sends data in encrypted form.
     <footer>
         <a href='http://khia.github.io/blog/post/skype-in-docker/'><nobr>Read more →</nobr></a>
-    </footer>
-</article>
-
-    
-        <article class="post">
-    <header>
-      <h2><a href="http://khia.github.io/blog/post/consistency-management-in-distributed-settings/">Consistency management in distributed settings </a> </h2>
-      <div class="post-meta">Thu, Nov 13, 2014 -  Read in 7 Min </div>
-    </header>
-
-    Consistency management in distributed settings Disclaimer I just participate in numerous design discussions related to genomu development. However all ideas and 99% of the implementation due to @yrashk. I decided to write this post to document the design of genomu inspite the fact that this great development didn&rsquo;t take off. Introduction Being a consultancy agency we had a client who have ordered a development of a backend for a system for doing sport events betting.
-    <footer>
-        <a href='http://khia.github.io/blog/post/consistency-management-in-distributed-settings/'><nobr>Read more →</nobr></a>
     </footer>
 </article>
 

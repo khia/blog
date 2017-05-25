@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elixir on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/tags/elixir/</link>
+    <description>Recent content in Elixir on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Nov 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://khia.github.io/blog/tags/elixir/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Generating random looking IDs</title>
+      <link>http://khia.github.io/blog/post/generating-random-looking-ids/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/post/generating-random-looking-ids/</guid>
+      <description>Generating random looking IDs Introduction Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?
+Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crypto on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/tags/crypto/</link>
+    <description>Recent content in Crypto on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Nov 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://khia.github.io/blog/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Protecting in-memory crypto material</title>
+      <link>http://khia.github.io/blog/post/protecting-in-memory-crypto-material/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/post/protecting-in-memory-crypto-material/</guid>
+      <description>Protecting in-memory crypto material Introduction Let&amp;rsquo;s say you operate a service which need to sign clients&amp;rsquo; requests. You would have to have a private key (signing key) on your server. Having keys on the server is ok as long as you fully control the server. You cannot trust the cloud provider if you use one. Even if a company you use doesn&amp;rsquo;t practice illegal access to information of their customers.</description>
+    </item>
+    
+  </channel>
+</rss>

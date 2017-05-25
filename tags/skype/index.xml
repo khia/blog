@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Skype on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/tags/skype/</link>
+    <description>Recent content in Skype on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Nov 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://khia.github.io/blog/tags/skype/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Skype in docker</title>
+      <link>http://khia.github.io/blog/post/skype-in-docker/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/post/skype-in-docker/</guid>
+      <description>Skype in docker Introduction If you want to separate your personal life from work you would end up with two Skype accounts. However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user). Here comes an idea to run Skype in the docker. Running Skype in docker is also useful for privacy sensitive individuals like myself. Since the Skype application is closed source and sends data in encrypted form.</description>
+    </item>
+    
+  </channel>
+</rss>
