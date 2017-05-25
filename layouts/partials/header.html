@@ -5,12 +5,12 @@
 
     {{ partial "meta.html" . }}
 
-    <base href="{{ .Site.BaseUrl }}">
-    <title> {{ .Title }} - {{.Site.Params.Site}} </title>
+    <base href="{{ .Site.BaseURL }}">
+    <title> {{ .Title }} - {{.Site.Params.SiteTitle}} </title>
     <link rel="canonical" href="{{ .Permalink }}">
-    {{ if .RSSlink }}<link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ .Title }}" />{{ end }}
+    {{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Title }}" />{{ end }}
 
     {{ partial "head_includes.html" . }}
-    <link rel="shortcut icon" href="{{ .Site.BaseUrl }}//favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{{ .Site.BaseUrl }}//apple-touch-icon.png" />
+    <link rel="shortcut icon" href="{{ .Site.BaseURL }}//favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{ .Site.BaseURL }}//apple-touch-icon.png" />
 </head>

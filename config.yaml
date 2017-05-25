@@ -4,10 +4,10 @@ layoutdir: "layouts"
 publishdir: "public"
 indexes:
 category: "categories"
-baseurl: "http://khia.github.io/blog"
+baseURL: "http://khia.github.io/blog"
 title: "KHIA's personal Blog"
 params:
-  Site: "khia.github.io"
+  SiteTitle: "khia.github.io"
   Author:
     Name: "ILYA Khlopotov"
     Nick: "KHIA"
