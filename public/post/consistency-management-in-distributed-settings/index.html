@@ -112,19 +112,19 @@
         <article itemprop="articleBody" id="content">
            
 
-<h1 id="toc_0">Consistency management in distributed settings</h1>
+<h1 id="consistency-management-in-distributed-settings">Consistency management in distributed settings</h1>
 
-<h2 id="toc_1">Disclaimer</h2>
+<h2 id="disclaimer">Disclaimer</h2>
 
 <p>I just participate in numerous design discussions related to genomu development. However all ideas and 99% of the implementation due to <a href="http://github.com/yrashk">@yrashk</a>. I decided to write this post to document the design of genomu inspite the fact that this great development didn&rsquo;t take off.</p>
 
-<h2 id="toc_2">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p>Being a consultancy agency we had a client who have ordered a development of a backend for a system
 for doing sport events betting. The business idea behind the system is to sell paper tickets which contain a list of sport events along with three scratch areas for choices such as (team A wins, team B wins, tie). Customers scratch out their choices. The more areas they scratch the more expensive the bet.
 Special hardware terminals installed at points of sales in order to scan the user&rsquo;s choices and validate winning tickets. Payout to a winner would depend on how many scratched areas she got correctly.</p>
 
-<h2 id="toc_3">Set of requirements for a backend</h2>
+<h2 id="set-of-requirements-for-a-backend">Set of requirements for a backend</h2>
 
 <ol>
 <li>Backend should be <code>always</code> available for accepting tickets with users&rsquo; choices</li>
@@ -132,7 +132,7 @@ Special hardware terminals installed at points of sales in order to scan the use
 <li>Payout approximation and jackpot calculation should be calculated real time and displayed on the web page of the customer</li>
 </ol>
 
-<h2 id="toc_4">Requirements analysis</h2>
+<h2 id="requirements-analysis">Requirements analysis</h2>
 
 <p>At first sight we thought that we have a contradicting sets of requirements which would violate Dr. Eric Brewer&rsquo;s CAP theorem. However we noticed that we actually have different types of updates with different requirements.</p>
 
@@ -144,7 +144,7 @@ Special hardware terminals installed at points of sales in order to scan the use
 
 <p>Tickets and events require high availability. Payout require full consistency. We evaluated a number of existing databases which would give as guaranties we need. We were unable to find one. Therefore we decided to roll our own. Our client didn&rsquo;t mind to sponsor this development.</p>
 
-<h2 id="toc_5">Problem statement</h2>
+<h2 id="problem-statement">Problem statement</h2>
 
 <p>Given set of the requirements it was obvious to us that in order to achieve high availability we would need to have a distributed system. Dealing with distributed systems is always a challenge due to a necessity to maintain an appropriate consistency level of the system&rsquo;s state. CAP theorem in it&rsquo;s most often used interpretation states that we cannot have all three (C,A,P) properties in a single system. However there is a more advanced interpretation of the theorem called <a href="http://dbmsmusings.blogspot.ca/2010/04/problems-with-cap-and-yahoos-little.html">PACELC</a><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
 
@@ -163,11 +163,11 @@ Special hardware terminals installed at points of sales in order to scan the use
 <li>W - how many servers&rsquo; acknowledgements we would wait until we consider data to be fully committed</li>
 </ul>
 
-<h2 id="toc_6">Genomu</h2>
+<h2 id="genomu">Genomu</h2>
 
 <p><a href="genomu.com">Genomu</a> is eventually consistent key value storage database we have developed in order to implement betting system. This system follows the Event Sourcing model. Event Sourcing ensures that all changes to application state are stored as a sequence of events. In order to get current state all events need to be replayed.</p>
 
-<h2 id="toc_7">Conflict detection and resolution</h2>
+<h2 id="conflict-detection-and-resolution">Conflict detection and resolution</h2>
 
 <p>In any system where concurrent updates are possible eventually it is going to be a case when two replicas would contain different values for the same key. There are just a few techniques to detect conflicts</p>
 
@@ -205,15 +205,15 @@ Special hardware terminals installed at points of sales in order to scan the use
 <li>implement automatic resolution on writes for merge-able data (using user provided callback)</li>
 </ul>
 
-<h2 id="toc_8">Leader election or lack thereof</h2>
+<h2 id="leader-election-or-lack-thereof">Leader election or lack thereof</h2>
 
 <p>Since genomu needs full consistency for payouts we need ACID transactions. ACID transactions in distributed systems are implemented using a transaction coordinator (sometimes called transaction manager or a leader). Usually for leader election in distributed systems Paxos <sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup> protocol is used. Leader election is needed if it is not clear which of the nodes would be responsible for coordination of a transaction. It turned out that leader election is not needed if the client is able to maintain simultaneous connections to multiple nodes. Here is how it works. We use round-robin load balancer in front of our backend. Client application creates a pool of connections to backend. Load balancer makes sure that connections from the same user are opened to different backend nodes. When the application wants to initiate a transaction it checkouts one of the connections from the pool and creates a <code>channel</code>. Every transaction executes in a <code>channel</code> context. When a transaction is committed or rolled back <code>channel</code> get destroyed. When an application creates a <code>channel</code> the node which receives the request would start a new process responsible for the <code>channel</code>. This process would become a <code>leader</code> for a transaction. If transaction fails for any reason application would need to try again and check out different connection from its pool. Which would be for a different node. Which would mean that transaction leader would be on different node (which might be on a different side of a split brain).</p>
 
-<h2 id="toc_9">Isolation</h2>
+<h2 id="isolation">Isolation</h2>
 
 <p>The isolation property means that the effects of the transaction shouldn&rsquo;t be visible to other concurrently executed transactions until the transaction is committed. We achieve isolation by fetching revision IDs for all keys which are read or updated inside the transaction and storing them in <code>ets</code> table owned by <code>channel</code>. Then we prepare a transaction. Prepared transaction contains a next revision id of the key we want to update as well as an operation which needs to be applied to a value. We choose nodes where we want to store N replicas of the data. We send prepared transaction to every replica and wait for W acknowledges. When node containing a replica receives a transaction it is able to tell if the revision id has been changed or not. If it does change node replies with NACK (negative acknowledgement) containing latest revision id it knows about. Updates for a key a placed under a composite key {key, revision} which provides an isolation. When a node commits transaction. It copies the value of {key, revision} under {key, nil} composite key.</p>
 
-<h2 id="toc_10">Implementation details</h2>
+<h2 id="implementation-details">Implementation details</h2>
 
 <p>We used riak-core as our distribution framework. Instead of sharding, riak-core evenly distributes data across a cluster using consistent hashing. Riak core provides deterministic routing to replicas of a key. It handles automatic data handovers when a node leaves/joins the cluster. It uses the gossip protocol to ensure consistent topology changes. We implemented a riak-core vnode (virtual node) which receives commands from our transaction coordinator.</p>
 
@@ -248,14 +248,14 @@ Special hardware terminals installed at points of sales in order to scan the use
         </section>
         <ul id="categories">
           
-            <li><a href="http://khia.github.io/blog/topics/Development">Development</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/development">Development</a> </li>
           
-            <li><a href="http://khia.github.io/blog/topics/DB">DB</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/db">DB</a> </li>
           
         </ul>
         <ul id="tags">
           
-            <li> <a href="http://khia.github.io/blog/tags/DB">DB</a> </li>
+            <li> <a href="http://khia.github.io/blog/tags/db">DB</a> </li>
           
             <li> <a href="http://khia.github.io/blog/tags/consistency">consistency</a> </li>
           
@@ -266,9 +266,9 @@ Special hardware terminals installed at points of sales in order to scan the use
 
     <div>
         <section id="prev">
-            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/skype-in-docker/"><i class="icon-arrow-left"></i> Skype in docker</a><br>
-        </section><section id="next">
             &nbsp;
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://khia.github.io/blog/post/generating-random-looking-ids/">Generating random looking IDs <i class="icon-arrow-right"></i></a>
         </section>
     </div>
 

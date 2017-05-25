@@ -113,17 +113,17 @@
         <article itemprop="articleBody" id="content">
            
 
-<h1 id="toc_0">Generating random looking IDs</h1>
+<h1 id="generating-random-looking-ids">Generating random looking IDs</h1>
 
-<h2 id="toc_1">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p>Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?</p>
 
-<h2 id="toc_2">Solution</h2>
+<h2 id="solution">Solution</h2>
 
 <p>The soltution I am going to explore today is based on the use of <code>block ciphers</code>. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.</p>
 
-<h2 id="toc_3">Elixir Implementation</h2>
+<h2 id="elixir-implementation">Elixir Implementation</h2>
 
 <pre><code>defmodule CryptoSequence do
   defstruct key: nil, iv: nil, ctr: 0
@@ -144,9 +144,9 @@
 end
 </code></pre>
 
-<h2 id="toc_4">Example of usage</h2>
+<h2 id="example-of-usage">Example of usage</h2>
 
-<h3 id="toc_5">Return four tokens</h3>
+<h3 id="return-four-tokens">Return four tokens</h3>
 
 <pre><code>sequence = CryptoSequence.new
 sequence
@@ -163,7 +163,7 @@ sequence
  &lt;&lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&gt;&gt;]
 </code></pre>
 
-<h3 id="toc_6">Lazy filtering</h3>
+<h3 id="lazy-filtering">Lazy filtering</h3>
 
 <pre><code>sequence = CryptoSequence.new([size: 8])
 sequence
@@ -181,7 +181,7 @@ sequence
  &lt;&lt;122, 227, 111, 91, 199, 52, 18, 116, 231, 60, 10, 124, 71, 93, 22, 127&gt;&gt;]
 </code></pre>
 
-<h3 id="toc_7">Last checks</h3>
+<h3 id="last-checks">Last checks</h3>
 
 <ol>
 <li>Let&rsquo;s check if generated IDs are unique</li>
@@ -207,7 +207,7 @@ Key = crypto:rand_bytes(16).
 [base64:encode(crypto:block_encrypt(aes_cfb128, Key, Iv, &lt;&lt;I:32&gt;&gt;)) || I &lt;- lists:seq(1, 255)].
 </code></pre>
 
-<h3 id="toc_8">Note to myself</h3>
+<h3 id="note-to-myself">Note to myself</h3>
 
 <p>I need to analyse if the solution is subject to <code>padding oracle attack</code>. I would need to look at other bijective functions if it is.</p>
 
@@ -227,9 +227,9 @@ Key = crypto:rand_bytes(16).
         </section>
         <ul id="categories">
           
-            <li><a href="http://khia.github.io/blog/topics/Development">Development</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/development">Development</a> </li>
           
-            <li><a href="http://khia.github.io/blog/topics/Elixir">Elixir</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/elixir">Elixir</a> </li>
           
         </ul>
         <ul id="tags">
@@ -243,9 +243,9 @@ Key = crypto:rand_bytes(16).
 
     <div>
         <section id="prev">
-            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/"><i class="icon-arrow-left"></i> Protecting in-memory crypto material</a><br>
+            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/consistency-management-in-distributed-settings/"><i class="icon-arrow-left"></i> Consistency management in distributed settings</a><br>
         </section><section id="next">
-            &nbsp;<a class="next" href="http://khia.github.io/blog/post/skype-in-docker/">Skype in docker <i class="icon-arrow-right"></i></a>
+            &nbsp;<a class="next" href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/">Protecting in-memory crypto material <i class="icon-arrow-right"></i></a>
         </section>
     </div>
 

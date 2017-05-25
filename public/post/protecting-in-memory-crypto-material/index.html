@@ -112,9 +112,9 @@
         <article itemprop="articleBody" id="content">
            
 
-<h1 id="toc_0">Protecting in-memory crypto material</h1>
+<h1 id="protecting-in-memory-crypto-material">Protecting in-memory crypto material</h1>
 
-<h2 id="toc_1">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p>Let&rsquo;s say you operate a service which need to sign clients&rsquo; requests.
 You would have to have a private key (signing key) on your server.
@@ -123,20 +123,20 @@ You cannot trust the cloud provider if you use one.
 Even if a company you use doesn&rsquo;t practice illegal access to information of their customers.
 Some individual employees might. So what you would do to protect yourself in this case?</p>
 
-<h2 id="toc_2">Solution</h2>
+<h2 id="solution">Solution</h2>
 
 <p>Unfortunately there is no solution.
 If third party controls your hardware. They have access to RAM where the private key is located.
 They can use various ways to get the info from there.
 If quantum entanglement would be employed in the form of quantum-memory than it might be possible to implement self destruction of crypto key whenever anyone looking at it. Until then there is no hope. However you can mitigate the risk if you employ multiple cloud providers and split private key into individually useless fragments. In this case you could do distributed signing. The correct term for this functionality is &ldquo;aggregate signatures&rdquo;. There are sequencial aggregate signatures and non-sequencial ones. Sequential usually non-interactive while non-sequential are interactive.</p>
 
-<h2 id="toc_3">RSA-compatible</h2>
+<h2 id="rsa-compatible">RSA-compatible</h2>
 
 <ol>
 <li>ID-Based Sequential Aggregate Signatures by Xiangguo Cheng at el.</li>
 </ol>
 
-<h2 id="toc_4">Non RSA-compatible</h2>
+<h2 id="non-rsa-compatible">Non RSA-compatible</h2>
 
 <ol>
 <li><p>Sequential Aggregate Signatures, Multisignatures, and Veriably Encrypted Signatures Without Random Oracles.</p></li>
@@ -144,7 +144,7 @@ If quantum entanglement would be employed in the form of quantum-memory than it 
 <li><p>Sequential Aggregate Signatures with Short Public Keys: Design, Analysis and Implementation Studies.</p></li>
 </ol>
 
-<h2 id="toc_5">Note for myself</h2>
+<h2 id="note-for-myself">Note for myself</h2>
 
 <p>Add bibtex links</p>
 
@@ -164,11 +164,11 @@ If quantum entanglement would be employed in the form of quantum-memory than it 
         </section>
         <ul id="categories">
           
-            <li><a href="http://khia.github.io/blog/topics/Thoughts">Thoughts</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/thoughts">Thoughts</a> </li>
           
-            <li><a href="http://khia.github.io/blog/topics/Crypto">Crypto</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/crypto">Crypto</a> </li>
           
-            <li><a href="http://khia.github.io/blog/topics/Theory">Theory</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/theory">Theory</a> </li>
           
         </ul>
         <ul id="tags">
@@ -182,9 +182,9 @@ If quantum entanglement would be employed in the form of quantum-memory than it 
 
     <div>
         <section id="prev">
-            &nbsp;
+            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/generating-random-looking-ids/"><i class="icon-arrow-left"></i> Generating random looking IDs</a><br>
         </section><section id="next">
-            &nbsp;<a class="next" href="http://khia.github.io/blog/post/generating-random-looking-ids/">Generating random looking IDs <i class="icon-arrow-right"></i></a>
+            &nbsp;<a class="next" href="http://khia.github.io/blog/post/skype-in-docker/">Skype in docker <i class="icon-arrow-right"></i></a>
         </section>
     </div>
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/tags/</link>
+    <description>Recent content in Tags on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Nov 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://khia.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Consistency</title>
+      <link>http://khia.github.io/blog/tags/consistency/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/consistency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crypto</title>
+      <link>http://khia.github.io/blog/tags/crypto/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Db</title>
+      <link>http://khia.github.io/blog/tags/db/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/db/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Distribution</title>
+      <link>http://khia.github.io/blog/tags/distribution/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/distribution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>http://khia.github.io/blog/tags/docker/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elixir</title>
+      <link>http://khia.github.io/blog/tags/elixir/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/elixir/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>http://khia.github.io/blog/tags/security/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Skype</title>
+      <link>http://khia.github.io/blog/tags/skype/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/skype/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Uuid</title>
+      <link>http://khia.github.io/blog/tags/uuid/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/tags/uuid/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

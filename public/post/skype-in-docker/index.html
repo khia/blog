@@ -112,9 +112,9 @@
         <article itemprop="articleBody" id="content">
            
 
-<h1 id="toc_0">Skype in docker</h1>
+<h1 id="skype-in-docker">Skype in docker</h1>
 
-<h2 id="toc_1">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p>If you want to separate your personal life from work you would end up with two Skype accounts.
 However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user).
@@ -124,11 +124,11 @@ Since the Skype application is closed source and sends data in encrypted form.
 There is no way to know what it is doing and what it is sending out.
 By using docker you can prevent access of Skype application to your files on disk.</p>
 
-<h2 id="toc_2">Previous Attempts</h2>
+<h2 id="previous-attempts">Previous Attempts</h2>
 
 <p>There are multiple attempts to dockerize <code>skype</code> on the Internet. However most of them install xorg into the container. They also use ssh X11 forwarding to access skype client from the host computer. Can we do better? Let&rsquo;s find out.</p>
 
-<h2 id="toc_3">Solution</h2>
+<h2 id="solution">Solution</h2>
 
 <p>Docker supports passing unix socket from host to the container. If we pass xorg socket our app (in this case Skype but could be anything) we should be able to use it.</p>
 
@@ -209,11 +209,11 @@ CMD &quot;LD_PRELOAD=/usr/lib/i386-linux-gnu/libv4l/v4l1compat.so /usr/bin/skype
 
 <p>Full source code of docker-skype is <a href="https://github.com/khia-docker/docker-skype">available</a></p>
 
-<h2 id="toc_4">Security Notes</h2>
+<h2 id="security-notes">Security Notes</h2>
 
 <p>This way of running Skype in docker protects only access to your files. Skype app still would be able to keylog or taking screenshots if it does so. Since it has access to xorg socket.</p>
 
-<h2 id="toc_5">Ways to improve</h2>
+<h2 id="ways-to-improve">Ways to improve</h2>
 
 <p>I don&rsquo;t like that we need to deploy 4 scripts to host machine</p>
 
@@ -245,9 +245,9 @@ CMD &quot;LD_PRELOAD=/usr/lib/i386-linux-gnu/libv4l/v4l1compat.so /usr/bin/skype
         </section>
         <ul id="categories">
           
-            <li><a href="http://khia.github.io/blog/topics/Security">Security</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/security">Security</a> </li>
           
-            <li><a href="http://khia.github.io/blog/topics/Docker">Docker</a> </li>
+            <li><a href="http://khia.github.io/blog/topics/docker">Docker</a> </li>
           
         </ul>
         <ul id="tags">
@@ -263,9 +263,9 @@ CMD &quot;LD_PRELOAD=/usr/lib/i386-linux-gnu/libv4l/v4l1compat.so /usr/bin/skype
 
     <div>
         <section id="prev">
-            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/generating-random-looking-ids/"><i class="icon-arrow-left"></i> Generating random looking IDs</a><br>
+            &nbsp;<a class="previous" href="http://khia.github.io/blog/post/protecting-in-memory-crypto-material/"><i class="icon-arrow-left"></i> Protecting in-memory crypto material</a><br>
         </section><section id="next">
-            &nbsp;<a class="next" href="http://khia.github.io/blog/post/consistency-management-in-distributed-settings/">Consistency management in distributed settings <i class="icon-arrow-right"></i></a>
+            &nbsp;
         </section>
     </div>
 

@@ -1,423 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>Posts on KHIA&#39;s personal Blog </title>
-      <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>http://khia.github.io/blog/post/index.xml/</link>
+    <title>Posts on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/post/</link>
+    <description>Recent content in Posts on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Nov 2014 00:00:00 +0000</lastBuildDate>
     
+	<atom:link href="http://khia.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <updated>Thu, 13 Nov 2014 00:00:00 UTC</updated>
     
     <item>
       <title>Consistency management in distributed settings</title>
       <link>http://khia.github.io/blog/post/consistency-management-in-distributed-settings/</link>
-      <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>http://khia.github.io/blog/post/consistency-management-in-distributed-settings/</guid>
-      <description>
-
-&lt;h1 id=&#34;toc_0&#34;&gt;Consistency management in distributed settings&lt;/h1&gt;
-
-&lt;h2 id=&#34;toc_1&#34;&gt;Disclaimer&lt;/h2&gt;
-
-&lt;p&gt;I just participate in numerous design discussions related to genomu development. However all ideas and 99% of the implementation due to &lt;a href=&#34;http://github.com/yrashk&#34;&gt;@yrashk&lt;/a&gt;. I decided to write this post to document the design of genomu inspite the fact that this great development didn&amp;rsquo;t take off.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_2&#34;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Being a consultancy agency we had a client who have ordered a development of a backend for a system
-for doing sport events betting. The business idea behind the system is to sell paper tickets which contain a list of sport events along with three scratch areas for choices such as (team A wins, team B wins, tie). Customers scratch out their choices. The more areas they scratch the more expensive the bet.
-Special hardware terminals installed at points of sales in order to scan the user&amp;rsquo;s choices and validate winning tickets. Payout to a winner would depend on how many scratched areas she got correctly.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_3&#34;&gt;Set of requirements for a backend&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Backend should be &lt;code&gt;always&lt;/code&gt; available for accepting tickets with users&amp;rsquo; choices&lt;/li&gt;
-&lt;li&gt;Backend must stop any payouts if there is any inconsistency present in the system&lt;/li&gt;
-&lt;li&gt;Payout approximation and jackpot calculation should be calculated real time and displayed on the web page of the customer&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;toc_4&#34;&gt;Requirements analysis&lt;/h2&gt;
-
-&lt;p&gt;At first sight we thought that we have a contradicting sets of requirements which would violate Dr. Eric Brewer&amp;rsquo;s CAP theorem. However we noticed that we actually have different types of updates with different requirements.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;tickets - representing new bets&lt;/li&gt;
-&lt;li&gt;events - information about sport event outcomes&lt;/li&gt;
-&lt;li&gt;payouts - update which invalidates the ticket&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Tickets and events require high availability. Payout require full consistency. We evaluated a number of existing databases which would give as guaranties we need. We were unable to find one. Therefore we decided to roll our own. Our client didn&amp;rsquo;t mind to sponsor this development.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_5&#34;&gt;Problem statement&lt;/h2&gt;
-
-&lt;p&gt;Given set of the requirements it was obvious to us that in order to achieve high availability we would need to have a distributed system. Dealing with distributed systems is always a challenge due to a necessity to maintain an appropriate consistency level of the system&amp;rsquo;s state. CAP theorem in it&amp;rsquo;s most often used interpretation states that we cannot have all three (C,A,P) properties in a single system. However there is a more advanced interpretation of the theorem called &lt;a href=&#34;http://dbmsmusings.blogspot.ca/2010/04/problems-with-cap-and-yahoos-little.html&#34;&gt;PACELC&lt;/a&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Using PACELC we can design a system where for some types of updates we would choose full consistency and for others we would choose high availability. In terms of PACELC we need a system which is&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;PA/EL for tickets and events&lt;/li&gt;
-&lt;li&gt;PC/EC for payouts&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;How do we configure the consistency options for different types of updates? The answer is NRW model.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;N - how many replicas of the data we want&lt;/li&gt;
-&lt;li&gt;R - how many servers&amp;rsquo; replies we wait until we conclude that we have a consistent read&lt;/li&gt;
-&lt;li&gt;W - how many servers&amp;rsquo; acknowledgements we would wait until we consider data to be fully committed&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_6&#34;&gt;Genomu&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;genomu.com&#34;&gt;Genomu&lt;/a&gt; is eventually consistent key value storage database we have developed in order to implement betting system. This system follows the Event Sourcing model. Event Sourcing ensures that all changes to application state are stored as a sequence of events. In order to get current state all events need to be replayed.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_7&#34;&gt;Conflict detection and resolution&lt;/h2&gt;
-
-&lt;p&gt;In any system where concurrent updates are possible eventually it is going to be a case when two replicas would contain different values for the same key. There are just a few techniques to detect conflicts&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;timestamps&lt;/li&gt;
-&lt;li&gt;vector clocks&lt;/li&gt;
-&lt;li&gt;global sequence number&lt;/li&gt;
-&lt;li&gt;interval tree clocks&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Resolution of conflicts is usually done using one of the following approaches&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;last writer wins&lt;/li&gt;
-&lt;li&gt;allow a user&amp;rsquo;s application to resolve conflict&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Allowing an application to resolve conflicts is more flexible because some of the data have a merge-able nature. For example non unique list of values (set). It is trivial to merge this kind of data.&lt;/p&gt;
-
-&lt;p&gt;Conflicts are usually resolved on&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;read&lt;/li&gt;
-&lt;li&gt;write&lt;/li&gt;
-&lt;li&gt;schedule&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For genomu we decided to pick following properties&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;detect conflicts using ITC&lt;/li&gt;
-&lt;li&gt;resolve conflicts automatically (for some types of updates)&lt;/li&gt;
-&lt;li&gt;allow a user&amp;rsquo;s application to resolve conflicts (for some types of updates)&lt;/li&gt;
-&lt;li&gt;let the user&amp;rsquo;s application to decide when to merge conflicts (on reads or writes)&lt;/li&gt;
-&lt;li&gt;implement automatic resolution on writes for merge-able data (using user provided callback)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_8&#34;&gt;Leader election or lack thereof&lt;/h2&gt;
-
-&lt;p&gt;Since genomu needs full consistency for payouts we need ACID transactions. ACID transactions in distributed systems are implemented using a transaction coordinator (sometimes called transaction manager or a leader). Usually for leader election in distributed systems Paxos &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; protocol is used. Leader election is needed if it is not clear which of the nodes would be responsible for coordination of a transaction. It turned out that leader election is not needed if the client is able to maintain simultaneous connections to multiple nodes. Here is how it works. We use round-robin load balancer in front of our backend. Client application creates a pool of connections to backend. Load balancer makes sure that connections from the same user are opened to different backend nodes. When the application wants to initiate a transaction it checkouts one of the connections from the pool and creates a &lt;code&gt;channel&lt;/code&gt;. Every transaction executes in a &lt;code&gt;channel&lt;/code&gt; context. When a transaction is committed or rolled back &lt;code&gt;channel&lt;/code&gt; get destroyed. When an application creates a &lt;code&gt;channel&lt;/code&gt; the node which receives the request would start a new process responsible for the &lt;code&gt;channel&lt;/code&gt;. This process would become a &lt;code&gt;leader&lt;/code&gt; for a transaction. If transaction fails for any reason application would need to try again and check out different connection from its pool. Which would be for a different node. Which would mean that transaction leader would be on different node (which might be on a different side of a split brain).&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_9&#34;&gt;Isolation&lt;/h2&gt;
-
-&lt;p&gt;The isolation property means that the effects of the transaction shouldn&amp;rsquo;t be visible to other concurrently executed transactions until the transaction is committed. We achieve isolation by fetching revision IDs for all keys which are read or updated inside the transaction and storing them in &lt;code&gt;ets&lt;/code&gt; table owned by &lt;code&gt;channel&lt;/code&gt;. Then we prepare a transaction. Prepared transaction contains a next revision id of the key we want to update as well as an operation which needs to be applied to a value. We choose nodes where we want to store N replicas of the data. We send prepared transaction to every replica and wait for W acknowledges. When node containing a replica receives a transaction it is able to tell if the revision id has been changed or not. If it does change node replies with NACK (negative acknowledgement) containing latest revision id it knows about. Updates for a key a placed under a composite key {key, revision} which provides an isolation. When a node commits transaction. It copies the value of {key, revision} under {key, nil} composite key.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_10&#34;&gt;Implementation details&lt;/h2&gt;
-
-&lt;p&gt;We used riak-core as our distribution framework. Instead of sharding, riak-core evenly distributes data across a cluster using consistent hashing. Riak core provides deterministic routing to replicas of a key. It handles automatic data handovers when a node leaves/joins the cluster. It uses the gossip protocol to ensure consistent topology changes. We implemented a riak-core vnode (virtual node) which receives commands from our transaction coordinator.&lt;/p&gt;
-
-&lt;p&gt;Genomu has a clean distinction between &lt;code&gt;set value&lt;/code&gt; and &lt;code&gt;update value&lt;/code&gt;. Set value overwrites the old value so it requires full consistency. We let a user&amp;rsquo;s application to resolve conflicts in this case. For &lt;code&gt;update value&lt;/code&gt; we only allow predefined set of operations. Due to a limited set of update operations, Event Sourcing and use of ITC we can merge conflicts automatically.&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;PACELC &amp;mdash; if there is a partition (P) how does the system tradeoff between availability and consistency (A and C); else (E) when the system is running as normal in the absence of partitions, how does the system tradeoff between latency (L) and consistency &amp;copy;?
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;Interval Tree Clocks (ITC) is a new clock mechanism that can be used in scenarios with a dynamic number of participants, allowing a completely decentralized creation of processes/replicas without need for global identifiers.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:3&#34;&gt;Paxos is a family of protocols for solving consensus in a network of unreliable processors.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Skype in docker</title>
-      <link>http://khia.github.io/blog/post/skype-in-docker/</link>
-      <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>
-      
-      <guid>http://khia.github.io/blog/post/skype-in-docker/</guid>
-      <description>
-
-&lt;h1 id=&#34;toc_0&#34;&gt;Skype in docker&lt;/h1&gt;
-
-&lt;h2 id=&#34;toc_1&#34;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;If you want to separate your personal life from work you would end up with two Skype accounts.
-However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user).
-Here comes an idea to run Skype in the docker.
-Running Skype in docker is also useful for privacy sensitive individuals like myself.
-Since the Skype application is closed source and sends data in encrypted form.
-There is no way to know what it is doing and what it is sending out.
-By using docker you can prevent access of Skype application to your files on disk.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_2&#34;&gt;Previous Attempts&lt;/h2&gt;
-
-&lt;p&gt;There are multiple attempts to dockerize &lt;code&gt;skype&lt;/code&gt; on the Internet. However most of them install xorg into the container. They also use ssh X11 forwarding to access skype client from the host computer. Can we do better? Let&amp;rsquo;s find out.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_3&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;p&gt;Docker supports passing unix socket from host to the container. If we pass xorg socket our app (in this case Skype but could be anything) we should be able to use it.&lt;/p&gt;
-
-&lt;p&gt;This is how you do it:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;docker run -t -i -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY &amp;lt;conatiner&amp;gt; &amp;lt;app&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Hmm Skype also needs sound. This piece took me quite a lot. I read tons of articles and posts on the internet. Until one day I didn&amp;rsquo;t come across this blog post &lt;a href=&#34;https://www.stgraber.org/category/planet-canonical/&#34;&gt;Running Google chrome in a container&lt;/a&gt;. Here is what the author did:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/sh
-PULSE_PATH=$LXC_ROOTFS_PATH/home/ubuntu/.pulse_socket
-
-if [ ! -e &amp;quot;$PULSE_PATH&amp;quot; ] || [ -z &amp;quot;$(lsof -n $PULSE_PATH 2&amp;gt;&amp;amp;1)&amp;quot; ]; then
-    pactl load-module module-native-protocol-unix auth-anonymous=1 \
-        socket=$PULSE_PATH
-fi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is amazing. Even if this technique was used for lxc it must work in the docker. So I refactor it a little bit and here is how it looks.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cat ~/bin/enable_sound
-PULSE_DIR=$1/.pulse/
-mkdir -p ${PULSE_DIR}
-echo &amp;quot;disable-shm=yes&amp;quot; &amp;gt; ${PULSE_DIR}/client.conf
-PULSE_PATH=${PULSE_DIR}/.socket
-if [ ! -e &amp;quot;$PULSE_PATH&amp;quot; ] || [ -z &amp;quot;$(lsof -n $PULSE_PATH 2&amp;gt;&amp;amp;1)&amp;quot; ]; then
-    pactl load-module module-native-protocol-unix auth-anonymous=1 socket=${PULSE_PATH} &amp;gt; /dev/null
-fi
-echo &amp;quot;-e PULSE_SERVER=/data/.pulse/.socket -e QT_X11_NO_MITSHM=1 -v ${PULSE_DIR}/:/data/.pulse&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This script can be used as follows:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cat ~/bin/skype.run
-#!/bin/bash
-SCRIPT_DIR=&amp;quot;$( cd &amp;quot;$( dirname &amp;quot;$0&amp;quot; )&amp;quot; &amp;amp;&amp;amp; pwd )&amp;quot;
-if [ &amp;quot;$#&amp;quot; -ne 1 ]; then
-  echo &amp;quot;Usage $0 &amp;lt;profile directory&amp;gt;&amp;quot;
-  exit 1
-fi
-sound_args=$(${SCRIPT_DIR}/enable_sound $1)
-docker run ${sound_args} &amp;lt;conatiner&amp;gt; &amp;lt;app&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;How about camera? Could we pass web camera device to the docker? Apparently we can.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cat ~/bin/enable_camera
-#!/bin/bash
-if [ -z ${VIDEO_DEV} ]; then
-  for device in /dev/video*
-  do
-    VIDEO_ARGS=&amp;quot;--device=${device} -v ${device}:${device} ${VIDEO_ARGS}&amp;quot;
-  done
-else
-  VIDEO_ARGS=&amp;quot;--device=${VIDEO_DEV} -v ${VIDEO_DEV}:${VIDEO_DEV}&amp;quot;
-fi
-echo ${VIDEO_ARGS}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We need to update &lt;code&gt;~/bin/skype.run&lt;/code&gt; as follows&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;- sound_args=$(${SCRIPT_DIR}/enable_sound $1)
-- docker run ${sound_args} &amp;lt;conatiner&amp;gt; &amp;lt;app&amp;gt;
-+ sound_args=$(${SCRIPT_DIR}/enable_sound $1)
-+ camera_args=$(${SCRIPT_DIR}/enable_camera $1)
-+ docker run ${sound_args} ${camera_arg} &amp;lt;conatiner&amp;gt; &amp;lt;app&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However my camera didn&amp;rsquo;t work with Skype. Skype needs to access some cameras in compatibility mode. In order to use it add following into &lt;code&gt;Dockerfile&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Enable camera
-RUN apt-get install -y libv4l-0:i386
-CMD &amp;quot;LD_PRELOAD=/usr/lib/i386-linux-gnu/libv4l/v4l1compat.so /usr/bin/skype&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Having &lt;code&gt;enable_video&lt;/code&gt; and &lt;code&gt;enable_camera&lt;/code&gt; as independent scripts make them very easy to maintain. So I ended up refactoring out xorg socket passing code into &lt;code&gt;bin/enable_video&lt;/code&gt;. You can see the result in my other dockerized application &lt;a href=&#34;https://github.com/khia-docker/docker-chromium&#34;&gt;docker-chromium&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Full source code of docker-skype is &lt;a href=&#34;https://github.com/khia-docker/docker-skype&#34;&gt;available&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_4&#34;&gt;Security Notes&lt;/h2&gt;
-
-&lt;p&gt;This way of running Skype in docker protects only access to your files. Skype app still would be able to keylog or taking screenshots if it does so. Since it has access to xorg socket.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_5&#34;&gt;Ways to improve&lt;/h2&gt;
-
-&lt;p&gt;I don&amp;rsquo;t like that we need to deploy 4 scripts to host machine&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;skype.run&lt;/li&gt;
-&lt;li&gt;enable_sound&lt;/li&gt;
-&lt;li&gt;enable_video&lt;/li&gt;
-&lt;li&gt;enable_camera&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So I&amp;rsquo;m looking for ways how to keep them separate in source code but merge into one script on installation. I want the following to produce one single file &lt;code&gt;~/bin/skype.run&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;docker run &amp;lt;container&amp;gt; install &amp;gt; ~/bin/skype.run &amp;amp;&amp;amp; chmod +x ~/bin/skype.run
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Consistency management in distributed settings Disclaimer I just participate in numerous design discussions related to genomu development. However all ideas and 99% of the implementation due to @yrashk. I decided to write this post to document the design of genomu inspite the fact that this great development didn&amp;rsquo;t take off.
+Introduction Being a consultancy agency we had a client who have ordered a development of a backend for a system for doing sport events betting.</description>
     </item>
     
     <item>
       <title>Generating random looking IDs</title>
       <link>http://khia.github.io/blog/post/generating-random-looking-ids/</link>
-      <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>http://khia.github.io/blog/post/generating-random-looking-ids/</guid>
-      <description>
-
-&lt;h1 id=&#34;toc_0&#34;&gt;Generating random looking IDs&lt;/h1&gt;
-
-&lt;h2 id=&#34;toc_1&#34;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_2&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;p&gt;The soltution I am going to explore today is based on the use of &lt;code&gt;block ciphers&lt;/code&gt;. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_3&#34;&gt;Elixir Implementation&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;defmodule CryptoSequence do
-  defstruct key: nil, iv: nil, ctr: 0
-
-  def new(args \\ []) do
-    state = struct(__MODULE__, [
-	    key: args[:key] || :crypto.rand_bytes(16),
-	    iv: args[:iv] || :crypto.rand_bytes(16)
-	  ])
-    Stream.unfold(state, &amp;amp;generator/1)
-  end
-
-  defp generator(%__MODULE__{key: key, iv: iv, ctr: ctr} = state) do
-    token = :crypto.block_encrypt(:aes_cfb128, key, iv, &amp;lt;&amp;lt;ctr :: 128 &amp;gt;&amp;gt;)
-    {token, %{state | ctr: ctr + 1}}
-  end
-
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;toc_4&#34;&gt;Example of usage&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_5&#34;&gt;Return four tokens&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new
-sequence
-  |&amp;gt; Stream.take(4)
-  |&amp;gt; Enum.to_list
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let&amp;rsquo;s try it&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;iex&amp;gt; sequence |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list
-[&amp;lt;&amp;lt;24, 86, 163, 121, 95, 113, 126, 102, 200, 34, 35, 30, 58, 50, 200, 97&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;152, 122, 169, 74, 24, 168, 169, 92, 206, 91, 153, 8, 53, 194, 104, 104&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&amp;gt;&amp;gt;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;toc_6&#34;&gt;Lazy filtering&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new([size: 8])
-sequence
-  |&amp;gt; Stream.filter(fn(&amp;lt;&amp;lt;i :: 64&amp;gt;&amp;gt;) -&amp;gt; rem(i, 3) == 0 end)
-  |&amp;gt; Stream.take(4)
-  |&amp;gt; Enum.to_list
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let&amp;rsquo;s try it&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;iex&amp;gt; sequence |&amp;gt; Stream.filter(fn(&amp;lt;&amp;lt;i :: 128&amp;gt;&amp;gt;) -&amp;gt; rem(i, 3) == 0 end) |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list
-[&amp;lt;&amp;lt;75, 41, 106, 103, 124, 98, 251, 231, 91, 123, 213, 88, 169, 74, 12, 244&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;113, 137, 139, 169, 23, 166, 229, 213, 13, 20, 224, 141, 197, 91, 2, 13&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;155, 174, 200, 216, 52, 217, 97, 91, 201, 171, 209, 59, 226, 7, 91, 252&amp;gt;&amp;gt;,
- &amp;lt;&amp;lt;122, 227, 111, 91, 199, 52, 18, 116, 231, 60, 10, 124, 71, 93, 22, 127&amp;gt;&amp;gt;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;toc_7&#34;&gt;Last checks&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Let&amp;rsquo;s check if generated IDs are unique&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code&gt;sequence = CryptoSequence.new
-length(Stream.take(sequence, 255) |&amp;gt; Enum.to_list |&amp;gt; Enum.uniq) == 255
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Let&amp;rsquo;s check that stream instantiated using the same args emits same sequence&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code&gt;key = :crypto.rand_bytes(16)
-iv = :crypto.rand_bytes(16)
-sequence1 = CryptoSequence.new([key: key, iv: iv])
-sequence2 = CryptoSequence.new([key: key, iv: iv])
-(sequence1 |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list) == (sequence2 |&amp;gt; Stream.take(4) |&amp;gt; Enum.to_list)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;Iv = crypto:rand_bytes(16).
-Key = crypto:rand_bytes(16).
-[base64:encode(crypto:block_encrypt(aes_cfb128, Key, Iv, &amp;lt;&amp;lt;I:32&amp;gt;&amp;gt;)) || I &amp;lt;- lists:seq(1, 255)].
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;toc_8&#34;&gt;Note to myself&lt;/h3&gt;
-
-&lt;p&gt;I need to analyse if the solution is subject to &lt;code&gt;padding oracle attack&lt;/code&gt;. I would need to look at other bijective functions if it is.&lt;/p&gt;
-</description>
+      <description>Generating random looking IDs Introduction Quite often I find myself in a situation where I need a unique random looking IDs. The naive solution to this problem is to generate random IDs and memoize already issued ones to prevent duplicates. The question is can we do better?
+Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.</description>
     </item>
     
     <item>
       <title>Protecting in-memory crypto material</title>
       <link>http://khia.github.io/blog/post/protecting-in-memory-crypto-material/</link>
-      <pubDate>Thu, 13 Nov 2014 00:00:00 UTC</pubDate>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>http://khia.github.io/blog/post/protecting-in-memory-crypto-material/</guid>
-      <description>
-
-&lt;h1 id=&#34;toc_0&#34;&gt;Protecting in-memory crypto material&lt;/h1&gt;
-
-&lt;h2 id=&#34;toc_1&#34;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s say you operate a service which need to sign clients&amp;rsquo; requests.
-You would have to have a private key (signing key) on your server.
-Having keys on the server is ok as long as you fully control the server.
-You cannot trust the cloud provider if you use one.
-Even if a company you use doesn&amp;rsquo;t practice illegal access to information of their customers.
-Some individual employees might. So what you would do to protect yourself in this case?&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_2&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;p&gt;Unfortunately there is no solution.
-If third party controls your hardware. They have access to RAM where the private key is located.
-They can use various ways to get the info from there.
-If quantum entanglement would be employed in the form of quantum-memory than it might be possible to implement self destruction of crypto key whenever anyone looking at it. Until then there is no hope. However you can mitigate the risk if you employ multiple cloud providers and split private key into individually useless fragments. In this case you could do distributed signing. The correct term for this functionality is &amp;ldquo;aggregate signatures&amp;rdquo;. There are sequencial aggregate signatures and non-sequencial ones. Sequential usually non-interactive while non-sequential are interactive.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_3&#34;&gt;RSA-compatible&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;ID-Based Sequential Aggregate Signatures by Xiangguo Cheng at el.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;toc_4&#34;&gt;Non RSA-compatible&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Sequential Aggregate Signatures, Multisignatures, and Veriably Encrypted Signatures Without Random Oracles.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Sequential Aggregate Signatures with Short Public Keys: Design, Analysis and Implementation Studies.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;toc_5&#34;&gt;Note for myself&lt;/h2&gt;
-
-&lt;p&gt;Add bibtex links&lt;/p&gt;
-</description>
+      <description>Protecting in-memory crypto material Introduction Let&amp;rsquo;s say you operate a service which need to sign clients&amp;rsquo; requests. You would have to have a private key (signing key) on your server. Having keys on the server is ok as long as you fully control the server. You cannot trust the cloud provider if you use one. Even if a company you use doesn&amp;rsquo;t practice illegal access to information of their customers.</description>
+    </item>
+    
+    <item>
+      <title>Skype in docker</title>
+      <link>http://khia.github.io/blog/post/skype-in-docker/</link>
+      <pubDate>Thu, 13 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/post/skype-in-docker/</guid>
+      <description>Skype in docker Introduction If you want to separate your personal life from work you would end up with two Skype accounts. However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user). Here comes an idea to run Skype in the docker. Running Skype in docker is also useful for privacy sensitive individuals like myself. Since the Skype application is closed source and sends data in encrypted form.</description>
     </item>
     
   </channel>
