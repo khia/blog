@@ -16,7 +16,16 @@
 
 {{ partial "subheader.html" . }}
 
+
+
 <section id="main">
+{{ range $.Site.Data.bibliography }}
+   {{ partial "books.html" . }}
+{{ end }}
+
+
+
+  </div>
   <div>
       <h1 id="title">{{.Site.Title}}</h1>
     {{ range first 10 .Data.Pages }}

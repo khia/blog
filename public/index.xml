@@ -48,5 +48,32 @@ Solution The soltution I am going to explore today is based on the use of block 
       <description>Skype in docker Introduction If you want to separate your personal life from work you would end up with two Skype accounts. However there is a problem. You cannot run multiple instances of Skype on a single computer (as single user). Here comes an idea to run Skype in the docker. Running Skype in docker is also useful for privacy sensitive individuals like myself. Since the Skype application is closed source and sends data in encrypted form.</description>
     </item>
     
+    <item>
+      <title>Elixir binding for lager</title>
+      <link>http://khia.github.io/blog/project/exlager/</link>
+      <pubDate>Sun, 21 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/project/exlager/</guid>
+      <description>ExLager Embeds logging calls to ExLager into a module if currently configured logging level is less or equal than severity of a call. Otherwise no code is emmited. Therefore it doesn&amp;rsquo;t have any negative impact on performance of a production system when you configure error level even if you have tons of debug messages.</description>
+    </item>
+    
+    <item>
+      <title>Code Complete</title>
+      <link>http://khia.github.io/blog/book/code_complete/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/book/code_complete/</guid>
+      <description>Features the best practices in the art and science of constructing software-topics include design, applying good techniques to construction, eliminating errors, planning, managing construction activities, and relating personal character to superior software. Original. (Intermediate)</description>
+    </item>
+    
+    <item>
+      <title>Why Programs Fail: A Guide to Systematic Debugging</title>
+      <link>http://khia.github.io/blog/book/why_programs_fail/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/book/why_programs_fail/</guid>
+      <description>Debugging has undergone a sea change in recent years. Increasing processing power has allowed for the creation of much more sophisticated software tools for the analysis and debugging of programs. This in turn has allowed debugging to graduate from a black art to a systematic discipline. The time is right to summarize this new advanced approach to debugging. Why Programs Fail is about bugs in computer programs, how to reproduce them, how to find them, and how to fix them in such a way that they do not occur anymore.</description>
+    </item>
+    
   </channel>
 </rss>

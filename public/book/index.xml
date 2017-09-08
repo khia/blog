@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Books on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/book/</link>
+    <description>Recent content in Books on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="http://khia.github.io/blog/book/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code Complete</title>
+      <link>http://khia.github.io/blog/book/code_complete/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/book/code_complete/</guid>
+      <description>Features the best practices in the art and science of constructing software-topics include design, applying good techniques to construction, eliminating errors, planning, managing construction activities, and relating personal character to superior software. Original. (Intermediate)</description>
+    </item>
+    
+    <item>
+      <title>Why Programs Fail: A Guide to Systematic Debugging</title>
+      <link>http://khia.github.io/blog/book/why_programs_fail/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/book/why_programs_fail/</guid>
+      <description>Debugging has undergone a sea change in recent years. Increasing processing power has allowed for the creation of much more sophisticated software tools for the analysis and debugging of programs. This in turn has allowed debugging to graduate from a black art to a systematic discipline. The time is right to summarize this new advanced approach to debugging. Why Programs Fail is about bugs in computer programs, how to reproduce them, how to find them, and how to fix them in such a way that they do not occur anymore.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<article class="book">
+    <header>
+      <div>
+      <img src="{{ .Params.cover }}"  align="left">
+      <h2 style="display: inline">
+<a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a>
+      </h2>
+      <br style="display: inline">
+      by {{ .Params.author }}, {{ .Params.publisher }}, {{ .Params.year }}
+      </div>
+      {{ if isset .Params "read_date" }}
+         <br style="display: inline">I have a privelege to read it in {{ .Params.read_date }}
+      {{ end }}
+     </div>
+
+    </header>
+<!--
+    {{ .Summary }}
+    <footer>
+        <a href='{{ .Permalink }}'><nobr>Read more →</nobr></a>
+    </footer>
+-->
+</article>

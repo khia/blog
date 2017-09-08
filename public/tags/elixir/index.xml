@@ -20,5 +20,14 @@
 Solution The soltution I am going to explore today is based on the use of block ciphers. Since their output is bijective (given same input IV and KEY) you will not have any collisions, unlike hashes.</description>
     </item>
     
+    <item>
+      <title>Elixir binding for lager</title>
+      <link>http://khia.github.io/blog/project/exlager/</link>
+      <pubDate>Sun, 21 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/project/exlager/</guid>
+      <description>ExLager Embeds logging calls to ExLager into a module if currently configured logging level is less or equal than severity of a call. Otherwise no code is emmited. Therefore it doesn&amp;rsquo;t have any negative impact on performance of a production system when you configure error level even if you have tons of debug messages.</description>
+    </item>
+    
   </channel>
 </rss>

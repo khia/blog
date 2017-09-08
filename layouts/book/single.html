@@ -1,0 +1,39 @@
+{{ partial "header.html" . }}
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+{{ partial "subheader.html" . }}
+{{ $baseurl := .Site.BaseURL }}
+
+<section id="main">
+  <h1 itemprop="name" id="title">{{ .Title }}</h1>
+  <img src="{{ .Params.cover }}">
+  <div>
+     by <span itemprop="name">{{.Params.author}}.</span></span><br>
+     {{ index .Params.publisher }}
+
+  </div>
+  <div>
+        <article itemprop="articleBody" id="content">
+           {{ .Content }}
+        </article>
+  </div>
+</section>
+
+<aside id="meta">
+    <div itemscope itemtype="http://schema.org/Book" id="bookmeta">
+    </div>
+
+<!--{{ partial "details.html" . }}-->
+</aside>
+
+<meta itemprop="datePublished" content="{{ .Params.year }}">
+<meta itemprop="url" content="{{ .Permalink }}">
+
+
+{{if isset .Params "project_url" }}
+<div id="outer_ribbon">
+<div id="ribbon">
+    <a href="{{ index .Params "project_url" }}" rel="me">Fork me on GitHub</a>
+</div> </div>
+{{ end }}
+
+{{ partial "footer.html" . }}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on KHIA&#39;s personal Blog</title>
+    <link>http://khia.github.io/blog/project/</link>
+    <description>Recent content in Projects on KHIA&#39;s personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Apr 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://khia.github.io/blog/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Elixir binding for lager</title>
+      <link>http://khia.github.io/blog/project/exlager/</link>
+      <pubDate>Sun, 21 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://khia.github.io/blog/project/exlager/</guid>
+      <description>ExLager Embeds logging calls to ExLager into a module if currently configured logging level is less or equal than severity of a call. Otherwise no code is emmited. Therefore it doesn&amp;rsquo;t have any negative impact on performance of a production system when you configure error level even if you have tons of debug messages.</description>
+    </item>
+    
+  </channel>
+</rss>
